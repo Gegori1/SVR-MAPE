@@ -63,6 +63,7 @@ class SVR_mape:
         self.sparse = sparse
         self.matrix = matrix
         self.solvers = solvers
+        self.np = np
         
         self.C = C
         self.epsilon = epsilon
@@ -98,6 +99,7 @@ class SVR_mape:
         sparse = self.sparse 
         matrix = self.matrix 
         solvers = self.solvers 
+        np = self.np
         
         # Useful parameters
         ydim = y.shape[0]
