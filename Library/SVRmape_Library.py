@@ -60,6 +60,7 @@ class SVR_mape:
         import numpy as np
         from cvxopt import matrix, solvers, sparse
         from sklearn.metrics.pairwise import pairwise_kernels
+        from sklearn.utils import check_X_y, check_array
         self.sparse = sparse
         self.matrix = matrix
         self.solvers = solvers
@@ -71,7 +72,8 @@ class SVR_mape:
         self.kernel = kernel
         self.pairwise_kernels = pairwise_kernels
         self.kernel_param = kernel_param
-        
+        self.check_X_y = check_X_y
+        self.check_array = check_array
         
     def fit(self, X, y):
         """ 
@@ -90,6 +92,7 @@ class SVR_mape:
                 compute new data points.
         """
         # hyperparameters
+        X, y = self.check_X_y(X, y)
         C = self.C 
         epsilon =  self.epsilon
         
@@ -178,6 +181,7 @@ class SVR_mape:
                input variables.
                 
         """
+        X_ = self.check_array(X_)
         k_test = self.pairwise_kernels(self.x_sv, X_, metric = self.kernel, **self.kernel_param)
 
         w_phi_test = self.beta_sv @ k_test
